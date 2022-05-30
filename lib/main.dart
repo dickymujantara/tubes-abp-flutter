@@ -1,4 +1,7 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:tubes_flutter/cerita.dart';
 
 void main() {
   runApp(const MyApp());
@@ -101,6 +104,16 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
+            ),
+            RaisedButton(
+              onPressed: (){
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const Cerita(),
+                ));
+              },
+              child: const Text(
+                "Cerita"
+              ),
             ),
           ],
         ),
