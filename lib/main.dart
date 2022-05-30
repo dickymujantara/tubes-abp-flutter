@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:tubes_flutter/visitlist.dart';
+
+import 'package:tubes_flutter/cerita.dart';
 
 void main() {
   runApp(const MyApp());
@@ -110,6 +113,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 ));
               },
               child: Text("Tambah tempat"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const Cerita(),
+                ));
+              },
+              child: const Text("Cerita"),
             ),
           ],
         ),
