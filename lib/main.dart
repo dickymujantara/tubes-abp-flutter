@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'ui/home/home.dart';
 import 'ui/story/story.dart';
 import 'ui/account/account.dart';
-
+import 'common/colors.dart';
 
 void main() {
   runApp(const MyApp());
