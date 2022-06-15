@@ -1,31 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:tubes_flutter/model/story_dummy.dart';
 import 'package:tubes_flutter/ui/story/add_story.dart';
+import 'package:tubes_flutter/ui/story/detail_story.dart';
 
 class Story extends StatelessWidget {
   const Story({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const CeritaPage(),
-    );
-  }
-}
-
-class CeritaPage extends StatefulWidget {
-  const CeritaPage({Key? key}) : super(key: key);
-
-  @override
-  CeritaPageState createState() => CeritaPageState();
-}
-
-class CeritaPageState extends State<CeritaPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,28 +34,16 @@ class CeritaPageState extends State<CeritaPage> {
                   fontSize: 15,
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.fromLTRB(2, 10, 2, 0),
-                child: GridView(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                  ),
-                  shrinkWrap: true,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.all(2),
-                      child: Image.network('https://picsum.photos/200?image=1'),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(2),
-                      child: Image.network('https://picsum.photos/200?image=2'),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(2),
-                      child: Image.network('https://picsum.photos/200?image=3'),
-                    ),
-                  ],
-                ),
+              LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  if(constraints.maxWidth <= 200){
+                    return StoryList();
+                  } else if(constraints.maxWidth <= 1200) {
+                    return StoryGrid(gridCount: 3);
+                  } else {
+                    return StoryGrid(gridCount: 6);
+                  }
+                },
               ),
             ],
           ),
@@ -87,6 +56,105 @@ class CeritaPageState extends State<CeritaPage> {
           ));
         },
         child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class StoryList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: storyList.length,
+      shrinkWrap: true,
+      itemBuilder: (BuildContext context, int index) {
+        final Stories story = storyList[index];
+        return InkWell(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return DetailScreenStory(story: story);
+            }));
+          },
+          child: Card(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  child: Image.asset(
+                      'assets/'+story.imageAsset
+                  ),
+                ),
+                Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Text(
+                            story.judul,
+                            style: TextStyle(
+                                fontSize: 16
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(story.content)
+                        ],
+                      ),
+                    )
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class StoryGrid extends StatelessWidget {
+  final int gridCount;
+
+  StoryGrid({required this.gridCount});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scrollbar(
+      isAlwaysShown: true,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: GridView.count(
+          crossAxisCount: gridCount,
+          crossAxisSpacing: 2,
+          mainAxisSpacing: 2,
+          shrinkWrap: true,
+          children: storyList.map((story) {
+            return InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return DetailScreenStory(story: story);
+                }));
+              },
+              child: Card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Expanded(
+                      child: Image.asset(
+                        'assets/'+story.imageAsset,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }).toList(),
+        ),
       ),
     );
   }
