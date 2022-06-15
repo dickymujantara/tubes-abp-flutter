@@ -82,7 +82,7 @@ class StoryList extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Image.asset(
-                      story.imageAsset
+                      'assets/'+story.imageAsset
                   ),
                 ),
                 Expanded(
@@ -126,11 +126,11 @@ class StoryGrid extends StatelessWidget {
     return Scrollbar(
       isAlwaysShown: true,
       child: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(10.0),
         child: GridView.count(
           crossAxisCount: gridCount,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
+          crossAxisSpacing: 2,
+          mainAxisSpacing: 2,
           shrinkWrap: true,
           children: storyList.map((story) {
             return InkWell(
@@ -145,7 +145,7 @@ class StoryGrid extends StatelessWidget {
                   children: <Widget>[
                     Expanded(
                       child: Image.asset(
-                        story.imageAsset,
+                        'assets/'+story.imageAsset,
                         fit: BoxFit.cover,
                       ),
                     ),
