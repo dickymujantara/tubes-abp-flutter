@@ -1,8 +1,32 @@
 import 'dart:convert';
 
-UserLoginResponse userFromJson(String str) => UserLoginResponse.fromJson(json.decode(str));
+UserResponse userFromJson(String str) => UserResponse.fromJson(json.decode(str));
 
-String userToJson(UserLoginResponse data) => json.encode(data.toJson());
+String userToJson(UserResponse data) => json.encode(data.toJson());
+
+class UserResponse{
+  UserResponse({
+    this.code,
+    this.message,
+    this.data
+  });
+
+  int? code;
+  String? message;
+  UserLoginResponse? data;
+
+  factory UserResponse.fromJson(Map<String, dynamic> data) =>  UserResponse(
+    code: data["code"],
+    message: data["message"],
+    data: data["data"]
+  );
+
+  Map<String, dynamic> toJson() => {
+    "code" : code,
+    "message" : message,
+    "data" : data,
+  };
+}
 
 class UserLoginResponse{
   UserLoginResponse({
