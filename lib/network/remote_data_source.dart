@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import '../model/user_response.dart';
 import '../model/story_response.dart';
+import '../common/constants.dart';
 
 class RemoteDataSource{
  static final Dio _dio = Dio(
     BaseOptions(
-      baseUrl: "http://touristenziel.herokuapp.com/api",
-      responseType: ResponseType.plain,
+      baseUrl: baseUrl,
+      responseType: ResponseType.json,
       contentType: 'application/json',
       validateStatus: (int? code) {
         return true;
@@ -14,21 +15,18 @@ class RemoteDataSource{
     ),
   );
 
-  static Future<UserLoginResponse> login({
+  static Future<UserResponse> login({
     required String username,
     required String password
   }) async {
     Response<String> response = await _dio.post<String>(
       '/login',
       data: {
-        username : username,
-        password : password
+        'username' : username,
+        'password' : password
       }
     );
     print(response);
-    print("login");
-    print(username);
-    print(password);
     return userFromJson(response.data ?? "");
   }
 
