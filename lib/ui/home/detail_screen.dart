@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tubes_flutter/model/tourism_place.dart';
+import 'package:tubes_flutter/model/tourist_attraction.dart';
 
 var informationTextStyle = TextStyle(fontFamily: 'Oswald');
 
 class DetailScreen extends StatelessWidget {
-  final TourismPlace place;
+  final Attraction place;
 
   DetailScreen({required this.place});
 
@@ -17,7 +18,7 @@ class DetailScreen extends StatelessWidget {
           children: <Widget>[
             Stack(
               children: <Widget>[
-                Image.asset(place.imageAsset),
+                Image.asset(place.imageurl.toString()),
                 SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -46,7 +47,7 @@ class DetailScreen extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 16.0),
               child: Text(
-                place.name,
+                place.name.toString(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 30.0,
@@ -64,7 +65,7 @@ class DetailScreen extends StatelessWidget {
                       Icon(Icons.calendar_today),
                       SizedBox(height: 8.0),
                       Text(
-                        place.openDays,
+                        place.name.toString(),
                         style: informationTextStyle,
                       ),
                     ],
@@ -74,7 +75,7 @@ class DetailScreen extends StatelessWidget {
                       Icon(Icons.access_time),
                       SizedBox(height: 8.0),
                       Text(
-                        place.openTime,
+                        place.image.toString(),
                         style: informationTextStyle,
                       ),
                     ],
@@ -84,7 +85,7 @@ class DetailScreen extends StatelessWidget {
                       Icon(Icons.monetization_on),
                       SizedBox(height: 8.0),
                       Text(
-                        place.ticketPrice,
+                        place.ticketPrice.toString(),
                         style: informationTextStyle,
                       ),
                     ],
@@ -95,7 +96,7 @@ class DetailScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(16.0),
               child: Text(
-                place.description,
+                place.fullReview.toString(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16.0,
@@ -103,21 +104,21 @@ class DetailScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              height: 150,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: place.imageUrls.map((url) {
-                  return Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(url),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
+            // Container(
+            //   height: 150,
+            //   child: ListView(
+            //     scrollDirection: Axis.horizontal,
+            //     children: place.imageUrls.map((url) {
+            //       return Padding(
+            //         padding: const EdgeInsets.all(4.0),
+            //         child: ClipRRect(
+            //           borderRadius: BorderRadius.circular(10),
+            //           child: Image.network(url),
+            //         ),
+            //       );
+            //     }).toList(),
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -125,16 +126,13 @@ class DetailScreen extends StatelessWidget {
   }
 }
 
-
 class FavoriteButton extends StatefulWidget {
   @override
   _FavoriteButtonState createState() => _FavoriteButtonState();
 }
 
-
 class _FavoriteButtonState extends State<FavoriteButton> {
   bool isFavorite = false;
-
 
   @override
   Widget build(BuildContext context) {
