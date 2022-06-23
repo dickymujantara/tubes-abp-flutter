@@ -37,6 +37,8 @@ dependencies:
   dio: ^4.0.6
   shared_preferences: ^2.0.15
   provider: ^6.0.3
+  intl: ^0.17.0
+  google_fonts: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +64,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/default_profile.png
     - assets/images/farm-house.jpg
     - assets/images/taman-film.jpg
     - assets/images/stone-garden.jpg

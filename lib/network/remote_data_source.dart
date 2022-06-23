@@ -1,12 +1,14 @@
 import 'package:dio/dio.dart';
+import 'package:tubes_flutter/model/tourist_attraction.dart';
 import '../model/user_response.dart';
 import '../model/story_response.dart';
+import '../common/constants.dart';
 
-class RemoteDataSource{
- static final Dio _dio = Dio(
+class RemoteDataSource {
+  static final Dio _dio = Dio(
     BaseOptions(
-      baseUrl: "http://touristenziel.herokuapp.com/api",
-      responseType: ResponseType.plain,
+      baseUrl: baseUrl,
+      responseType: ResponseType.json,
       contentType: 'application/json',
       validateStatus: (int? code) {
         return true;
@@ -14,28 +16,22 @@ class RemoteDataSource{
     ),
   );
 
-  static Future<UserLoginResponse> login({
-    required String username,
-    required String password
-  }) async {
-    Response<String> response = await _dio.post<String>(
-      '/login',
-      data: {
-        username : username,
-        password : password
-      }
-    );
+  static Future<UserResponse> login(
+      {required String username, required String password}) async {
+    Response<String> response = await _dio.post<String>('/login',
+        data: {'username': username, 'password': password});
     print(response);
-    print("login");
-    print(username);
-    print(password);
     return userFromJson(response.data ?? "");
   }
 
   static Future<Stories> getHistory() async {
-
     Response<String> response = await _dio.get<String>('/read/story');
     return storiesFromJson(response.data ?? "");
   }
 
+  // static Future<Attractions> getTourists() async {
+  //   Response<String> response =
+  //       await _dio.get<String>('tourist/attraction/list');
+  //   return attractionsFromJson(response.data ?? "");
+  // }
 }
