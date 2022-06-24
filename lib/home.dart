@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'ui/home/home.dart';
 import 'ui/story/story.dart';
+import 'ui/visitlist/listdata.dart';
 import 'ui/account/account.dart';
+
 void main() {
   runApp(const MyHome());
 }
 
 const String page1 = "Home";
 const String page2 = "Story";
-const String page3 = "Profile";
+const String page3 = "Visit List";
+const String page4 = "Profile";
 const String title = "Touristenziel";
 
 class MyHome extends StatelessWidget {
@@ -37,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late Widget _page1;
   late Widget _page2;
   late Widget _page3;
+  late Widget _page4;
   late int _currentIndex;
   late Widget _currentPage;
   late Widget _loginPage;
@@ -46,8 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     _page1 = Home();
     _page2 = Story();
-    _page3 = Account();
-    _pages = [_page1, _page2, _page3];
+    _page3 = VisitList();
+    _page4 = Account();
+    _pages = [_page1, _page2, _page3, _page4];
     _currentIndex = 0;
     _currentPage = _page1;
   }
@@ -81,11 +86,12 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icon(Icons.note),
             ),
             BottomNavigationBarItem(
-              label: page3,
+                label: page3, icon: Icon(Icons.location_city)),
+            BottomNavigationBarItem(
+              label: page4,
               icon: Icon(Icons.people),
             ),
           ]),
     );
   }
-
 }
