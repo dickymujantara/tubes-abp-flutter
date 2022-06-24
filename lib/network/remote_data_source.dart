@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:tubes_flutter/model/tourist_attraction.dart';
+import '../model/tourist_attraction.dart';
 import '../model/user_response.dart';
 import '../model/story_response.dart';
+import '../model/user_register_response.dart';
+import '../model/user_profile_response.dart';
 import '../common/constants.dart';
 
 class RemoteDataSource {
@@ -20,8 +22,36 @@ class RemoteDataSource {
       {required String username, required String password}) async {
     Response<String> response = await _dio.post<String>('/login',
         data: {'username': username, 'password': password});
-    print(response);
-    return userFromJson(response.data ?? "");
+    print(response.data);
+    return userResponseFromJson(response.data!);
+  }
+  
+  static Future<UserRegisterResponse> register({
+    required String username,
+    required String name,
+    required String email,
+    required String address,
+    required String password,
+    required String conPassword,
+  }) async {
+    Response<String> response = await _dio.post<String>('/register',
+    data:{
+      'username' : username,
+      'name' : name,
+      'email' : email,
+      'address' : address,
+      'password' : password,
+      'conPassword' : conPassword
+    });
+
+    return userRegisterResponseFromJson(response.data!);
+  }
+
+  static Future<UserProfileResponse> profile({
+    required String id
+  }) async {
+    Response<String> response = await _dio.get<String>('/user/profile/' + id);
+    return userProfileResponseFromJson(response.data!);
   }
 
   static Future<Stories> getHistory() async {

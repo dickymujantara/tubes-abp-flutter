@@ -5,6 +5,7 @@ import 'package:tubes_flutter/common/text_styles.dart';
 import 'package:tubes_flutter/ui/auth/login_page.dart';
 
 class Account extends StatelessWidget {
+  static const routeName = "profile";
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(

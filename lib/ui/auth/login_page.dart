@@ -8,6 +8,7 @@ import 'package:tubes_flutter/widget/custom_form_field.dart';
 import 'package:tubes_flutter/common/colors.dart';
 import 'package:tubes_flutter/home.dart';
 import 'package:tubes_flutter/ui/auth/register_page.dart';
+import 'package:tubes_flutter/ui/account/account.dart';
 
 class LoginPage extends StatefulWidget{
   static const routeName = "login";
@@ -25,24 +26,24 @@ class _LoginPageState extends State<LoginPage>{
 
   Future<void> _login() async{
     setState(() => _onSend = true);
-    // UserProvider provider = context.read<UserProvider>();
-    // UserResponse auth = await provider.login(username: _usernameController.text, password: _passwordController.text);
-    // print(auth);
-    // if(auth.data?.token == null){
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     SnackBar(
-    //       content: Text(
-    //         loginFailed,
-    //       ),
-    //     ),
-    //   );
-    // }else {
+    UserProvider provider = context.read<UserProvider>();
+    UserResponse auth = await provider.login(username: _usernameController.text, password: _passwordController.text);
+    print(auth);
+    if(auth.data.accessToken == null){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            loginFailed,
+          ),
+        ),
+      );
+    }else {
       Navigator.pushNamedAndRemoveUntil(
         context,
         MyHomePage.routeName,
         (Route<dynamic> route) => false,
       );
-    // }
+    }
     setState(() => _onSend = false);
   }
 

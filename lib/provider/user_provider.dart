@@ -41,12 +41,12 @@ class UserProvider with ChangeNotifier{
     print("===Provider===");
     print(auth);
     print("===-------===");
-    _token = auth.data?.token;
-    _username = auth.data?.user?.username;
-    _name = auth.data?.user?.name;
-    _address = auth.data?.user?.address;
-    _email = auth.data?.user?.email;
-    _role = auth.data?.user?.role;
+    _token = auth.data.accessToken;
+    _username = auth.data.user.username;
+    _name = auth.data.user.name;
+    _address = auth.data.user.address;
+    _email = auth.data.user.email;
+    _role = auth.data.user.role;
 
     if (_token != null) {
       await _preferences.setString(keyToken,_token!);

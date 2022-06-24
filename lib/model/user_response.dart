@@ -1,91 +1,110 @@
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
-UserResponse userFromJson(String str) => UserResponse.fromJson(json.decode(str));
+UserResponse userResponseFromJson(String str) => UserResponse.fromJson(json.decode(str));
 
-String userToJson(UserResponse data) => json.encode(data.toJson());
+String userResponseToJson(UserResponse data) => json.encode(data.toJson());
 
-class UserResponse{
-  UserResponse({
-    this.code,
-    this.message,
-    this.data
-  });
+class UserResponse {
+    UserResponse({
+        required this.code,
+        required this.message,
+        required this.data,
+    });
 
-  int? code;
-  String? message;
-  UserLoginResponse? data;
+    int code;
+    String message;
+    Data data;
 
-  factory UserResponse.fromJson(Map<String, dynamic> data) =>  UserResponse(
-    code: data["code"],
-    message: data["message"],
-    data: data["data"]
-  );
+    factory UserResponse.fromJson(Map<String, dynamic> json) => UserResponse(
+        code: json["code"],
+        message: json["message"],
+        data: Data.fromJson(json["data"]),
+    );
 
-  Map<String, dynamic> toJson() => {
-    "code" : code,
-    "message" : message,
-    "data" : data,
-  };
+    Map<String, dynamic> toJson() => {
+        "code": code,
+        "message": message,
+        "data": data.toJson(),
+    };
 }
 
-class UserLoginResponse{
-  UserLoginResponse({
-    this.token,
-    this.token_type,
-    this.user
-  });
+class Data {
+    Data({
+        required this.accessToken,
+        required this.tokenType,
+        required this.user,
+    });
 
-  String? token;
-  String? token_type;
-  UserData? user;
+    String accessToken;
+    String tokenType;
+    User user;
 
-  factory UserLoginResponse.fromJson(Map<String, dynamic> json) =>  UserLoginResponse(
-    token: json["access_token"],
-    token_type: json["token_type"],
-    user: json["user"]
-  );
+    factory Data.fromJson(Map<String, dynamic> json) => Data(
+        accessToken: json["access_token"],
+        tokenType: json["token_type"],
+        user: User.fromJson(json["user"]),
+    );
 
-  Map<String, dynamic> toJson() => {
-    "token" : token,
-    "token_type" : token_type,
-    "user" : user,
-  };
-
+    Map<String, dynamic> toJson() => {
+        "access_token": accessToken,
+        "token_type": tokenType,
+        "user": user.toJson(),
+    };
 }
 
-class UserData{
-  UserData({
-    this.id,
-    this.username,
-    this.name,
-    this.role,
-    this.address,
-    this.email
-  });
+class User {
+    User({
+        required this.id,
+        required this.username,
+        required this.name,
+        required this.address,
+        required this.email,
+        required this.role,
+        required this.hasVerifiedEmail,
+        required this.emailVerificationToken,
+        required this.emailVerifiedAt,
+        required this.createdAt,
+        required this.updatedAt,
+    });
 
-  int? id;
-  String? username;
-  String? name;
-  String? address;
-  String? email;
-  String? role;
+    int id;
+    String username;
+    String name;
+    String address;
+    String email;
+    String role;
+    int hasVerifiedEmail;
+    dynamic emailVerificationToken;
+    dynamic emailVerifiedAt;
+    DateTime createdAt;
+    DateTime updatedAt;
 
-  factory UserData.fromJson(Map<String, dynamic> json) => UserData(
-    id: json["id"],
-    username: json["username"],
-    name: json["name"],
-    address: json["address"],
-    email: json["email"],
-    role: json["role"]
-  );
+    factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json["id"],
+        username: json["username"],
+        name: json["name"],
+        address: json["address"],
+        email: json["email"],
+        role: json["role"],
+        hasVerifiedEmail: json["has_verified_email"],
+        emailVerificationToken: json["email_verification_token"],
+        emailVerifiedAt: json["email_verified_at"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+    );
 
-  Map<String, dynamic> toJson() => {
-    "id" : id,
-    "username" : username,
-    "name" : name,
-    "address" : address,
-    "email" : email,
-    "role" : role
-  };
-
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "username": username,
+        "name": name,
+        "address": address,
+        "email": email,
+        "role": role,
+        "has_verified_email": hasVerifiedEmail,
+        "email_verification_token": emailVerificationToken,
+        "email_verified_at": emailVerifiedAt,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+    };
 }
