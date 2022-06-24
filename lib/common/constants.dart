@@ -1,5 +1,5 @@
-// const String baseUrl = 'http://touristenziel.herokuapp.com/api';
-const String baseUrl = 'http://7018-180-244-129-247.ngrok.io/api'; //local test
+const String baseUrl = 'http://touristenziel.herokuapp.com/api';
+// const String baseUrl = 'http://7018-180-244-129-247.ngrok.io/api'; //local test
 const double defaultMargin = 24;
 const String keyToken = "key_token";
 const String keyUsername = "key_username";

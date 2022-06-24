@@ -40,7 +40,7 @@ class _AttractionState extends State<Home> {
   }
 
   void _getData() async {
-    _touristModel = (await ApiService().getTourists())!;
+    // _touristModel = (await ApiService().getTourists())!;
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
