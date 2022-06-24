@@ -18,7 +18,8 @@ class DetailScreen extends StatelessWidget {
           children: <Widget>[
             Stack(
               children: <Widget>[
-                Image.asset(place.imageurl.toString()),
+                Image.network(
+                    'https://media-cdn.tripadvisor.com/media/photo-s/0d/7c/59/70/farmhouse-lembang.jpg'),
                 SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -65,7 +66,7 @@ class DetailScreen extends StatelessWidget {
                       Icon(Icons.calendar_today),
                       SizedBox(height: 8.0),
                       Text(
-                        place.name.toString(),
+                        'Setiap Hari',
                         style: informationTextStyle,
                       ),
                     ],
@@ -75,7 +76,7 @@ class DetailScreen extends StatelessWidget {
                       Icon(Icons.access_time),
                       SizedBox(height: 8.0),
                       Text(
-                        place.image.toString(),
+                        '07:00 - 17:00',
                         style: informationTextStyle,
                       ),
                     ],
@@ -85,7 +86,7 @@ class DetailScreen extends StatelessWidget {
                       Icon(Icons.monetization_on),
                       SizedBox(height: 8.0),
                       Text(
-                        place.ticketPrice.toString(),
+                        "Rp" + place.ticketPrice.toString(),
                         style: informationTextStyle,
                       ),
                     ],
@@ -96,7 +97,7 @@ class DetailScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(16.0),
               child: Text(
-                place.fullReview.toString(),
+                'Berada di jalur utama Bandung-Lembang, Farm House menjadi objek wisata yang tidak pernah sepi pengunjung. Selain karena letaknya strategis, kawasan ini juga menghadirkan nuansa wisata khas Eropa. Semua itu diterapkan dalam bentuk spot swafoto Instagramable.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16.0,
