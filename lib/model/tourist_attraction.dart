@@ -55,7 +55,7 @@ class Attraction {
   String updatedBy;
   DateTime createdAt;
   DateTime updatedAt;
-  double rating;
+  String rating;
   String imageurl;
   List<Openclose> openclose;
 
@@ -79,7 +79,7 @@ class Attraction {
         updatedBy: json["updated_by"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        rating: json["rating"].toDouble(),
+        rating: json["rating"],
         imageurl: json["imageurl"],
         openclose: List<Openclose>.from(
             json["openclose"].map((x) => Openclose.fromJson(x))),

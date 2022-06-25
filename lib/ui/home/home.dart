@@ -88,7 +88,37 @@ class _AttractionState extends State<Home> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Text(_touristModel[index].address.toString())
+                                  Text(_touristModel[index].address.toString()),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  // Text(
+                                  //   _touristModel[index].rating.toString(),
+                                  //   style:
+                                  //       TextStyle(fontWeight: FontWeight.bold),
+                                  // ),
+                                  RichText(
+                                    text: TextSpan(
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                      children: [
+                                        TextSpan(
+                                            text: _touristModel[index]
+                                                .rating
+                                                .toString()),
+                                        WidgetSpan(
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 2.0),
+                                            child: Icon(
+                                              Icons.star,
+                                              color: Colors.yellow,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
                                 ],
                               ),
                             ))
