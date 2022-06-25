@@ -20,9 +20,8 @@ class StoryProvider with ChangeNotifier {
     _idStory = _preferences.getString(keyIdStory);
   }
 
-  Future<void> setStory({ required String idStory, required String idUser}) async{
-    await _preferences.setString(keyIdStory, idStory);
-    await _preferences.setString(keyId, idUser);
+  Future<void> setStory({ required String idStory}) async{
+    _idStory = idStory;
   }
 
   Future<StoryResponse> getStory() async {
@@ -47,6 +46,26 @@ class StoryProvider with ChangeNotifier {
       content: content,
       image: image,
       likeCount: "0",
+    );
+    log('data : $storyCreate');
+    return storyCreate;
+  }
+
+  Future<StoryCreate> updateStory({
+    required String idUser,
+    required String title,
+    required String content,
+    File? image,
+    required String likeCount,
+    
+  }) async {
+    StoryCreate storyCreate = await RemoteDataSource.updateStory(
+      idUser: idUser,
+      idStory: _idStory!,
+      title: title,
+      content: content,
+      image: image,
+      likeCount: likeCount,
     );
     log('data : $storyCreate');
     return storyCreate;

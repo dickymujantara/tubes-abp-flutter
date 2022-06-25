@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tubes_flutter/model/story_response.dart';
+import 'package:tubes_flutter/provider/story_provider.dart';
 import 'package:tubes_flutter/ui/story/update_story.dart';
+import 'package:provider/provider.dart';
 
 var informationTextStyle = TextStyle(fontFamily: 'Oswald');
 
@@ -47,6 +49,8 @@ class DetailScreenStory extends StatelessWidget {
                   const Padding(padding: EdgeInsets.all(5)),
                   RaisedButton(
                     onPressed: (){
+                      StoryProvider provider = context.read<StoryProvider>();
+                      provider.setStory(idStory: story.id.toString());
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const UpdateCeritaPage(),
                       ));
