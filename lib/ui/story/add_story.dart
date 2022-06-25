@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:tubes_flutter/model/story_create.dart';
 import 'package:tubes_flutter/ui/story/story.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tubes_flutter/provider/story_provider.dart';
 import 'package:provider/provider.dart';
+
 
 class AddStory extends StatelessWidget {
   const AddStory({Key? key}) : super(key: key);
@@ -42,6 +44,73 @@ class TambahCeritaPageState extends State<TambahCeritaPage> {
   TextEditingController textNamaController = TextEditingController();
   TextEditingController textTitleController = TextEditingController();
   TextEditingController textContentController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+  bool _onSend = false;
+
+  Future<void> _createStory() async{
+    setState(() => _onSend = true);
+    try {
+      StoryProvider provider = context.read<StoryProvider>();
+      StoryCreate create = await provider.createStory(
+        title: textTitleController.text, 
+        content: textContentController.text, 
+        image: image!, 
+        likeCount: "0");
+
+      setState(() => _onSend = false);
+
+      showDialog(
+        context: context, 
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Alert'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: const <Widget>[
+                  Text('Create Successfully!'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        }
+      );
+    } catch (e) {
+      showDialog(
+        context: context, 
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Alert'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: const <Widget>[
+                  Text('Create Successfully!'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        }
+      );
+    }
+    
+    setState(() => _onSend = false);
+  }
 
   void kirimdata(){
     AlertDialog alert = AlertDialog(
@@ -144,7 +213,7 @@ class TambahCeritaPageState extends State<TambahCeritaPage> {
               ),
               RaisedButton(
                 onPressed: (){
-                  kirimdata();
+                  _createStory();
                 },
                 child: const Text(
                   "Simpan", style: TextStyle(color: Colors.white,),

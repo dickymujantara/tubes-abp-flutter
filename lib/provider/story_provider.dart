@@ -9,18 +9,22 @@ import '../network/remote_data_source.dart';
 
 class StoryProvider with ChangeNotifier {
   String? _idStory;
+  String? _idUser;
 
   late final SharedPreferences _preferences;
 
   String? get idStory => _idStory;
+  String? get idUser => _idUser;
 
   Future<void> init() async{
     _preferences = await SharedPreferences.getInstance();
     _idStory = _preferences.getString(keyIdStory);
+    _idUser = _preferences.getString(keyId);
   }
 
-  Future<void> setStory({ required String idStory }) async{
+  Future<void> setStory({ required String idStory, required String idUser}) async{
     await _preferences.setString(keyIdStory, idStory);
+    await _preferences.setString(keyId, idUser);
   }
 
   Future<StoryResponse> getStory() async {
@@ -32,19 +36,18 @@ class StoryProvider with ChangeNotifier {
   }
 
   Future<StoryCreate> createStory({
-    required String iduser,
     required String title,
     required String content,
     File? image,
-    required String likecount,
+    required String likeCount,
     
   }) async {
     StoryCreate storyCreate = await RemoteDataSource.createStory(
-      iduser: iduser,
+      idUser: _idUser!,
       title: title,
       content: content,
       image: image,
-      likecount: likecount,
+      likeCount: "0",
     );
     return storyCreate;
   }

@@ -85,20 +85,20 @@ class RemoteDataSource {
   }
 
   static Future<StoryCreate> createStory({
-    required String iduser,
+    required String idUser,
     required String title,
     required String content,
     File? image,
-    required String likecount,
+    required String likeCount,
   }) async {
     Response<String> response = await _dio.post<String>(
       '/create/story',
       data: {
-        'id_user': iduser,
         'title': title,
         'content': content,
-        if (image != null) 'image': await MultipartFile.fromFile(image.path),
-        'like_count': likecount,
+        if (image != null)
+          'image': await MultipartFile.fromFile(image.path),
+        'likeCount': "0",
       },
     );
     return storyCreateFromJson(response.data!);
