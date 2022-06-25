@@ -1,6 +1,8 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:tubes_flutter/model/story_create.dart';
+import 'package:tubes_flutter/provider/user_provider.dart';
 import 'package:tubes_flutter/ui/story/story.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tubes_flutter/provider/story_provider.dart';
@@ -35,6 +37,7 @@ class TambahCeritaPageState extends State<TambahCeritaPage> {
 
   Future pickImage() async{
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    print(image);
     if(image == null) return;
 
     final imageTemp = File(image.path);
@@ -52,7 +55,10 @@ class TambahCeritaPageState extends State<TambahCeritaPage> {
     setState(() => _onSend = true);
     try {
       StoryProvider provider = context.read<StoryProvider>();
+      UserProvider userProvider = context.read<UserProvider>();
+      String idUser = userProvider.id!;
       StoryCreate create = await provider.createStory(
+        idUser: idUser,
         title: textTitleController.text, 
         content: textContentController.text, 
         image: image!, 
@@ -68,7 +74,7 @@ class TambahCeritaPageState extends State<TambahCeritaPage> {
             content: SingleChildScrollView(
               child: ListBody(
                 children: const <Widget>[
-                  Text('Create Successfully!'),
+                  Text('Upload Story is Success!'),
                 ],
               ),
             ),
@@ -84,6 +90,7 @@ class TambahCeritaPageState extends State<TambahCeritaPage> {
         }
       );
     } catch (e) {
+      log('message : $e');
       showDialog(
         context: context, 
         builder: (BuildContext context) {
@@ -92,7 +99,7 @@ class TambahCeritaPageState extends State<TambahCeritaPage> {
             content: SingleChildScrollView(
               child: ListBody(
                 children: const <Widget>[
-                  Text('Create Successfully!'),
+                  Text('Upload Story is Failed!'),
                 ],
               ),
             ),

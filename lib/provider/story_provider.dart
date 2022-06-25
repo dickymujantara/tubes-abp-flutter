@@ -6,20 +6,18 @@ import 'package:tubes_flutter/model/story_response.dart';
 import 'package:tubes_flutter/model/story_detail.dart';
 import 'package:tubes_flutter/model/story_create.dart';
 import '../network/remote_data_source.dart';
+import 'dart:developer';
 
 class StoryProvider with ChangeNotifier {
   String? _idStory;
-  String? _idUser;
 
   late final SharedPreferences _preferences;
 
   String? get idStory => _idStory;
-  String? get idUser => _idUser;
 
   Future<void> init() async{
     _preferences = await SharedPreferences.getInstance();
     _idStory = _preferences.getString(keyIdStory);
-    _idUser = _preferences.getString(keyId);
   }
 
   Future<void> setStory({ required String idStory, required String idUser}) async{
@@ -36,6 +34,7 @@ class StoryProvider with ChangeNotifier {
   }
 
   Future<StoryCreate> createStory({
+    required String idUser,
     required String title,
     required String content,
     File? image,
@@ -43,12 +42,13 @@ class StoryProvider with ChangeNotifier {
     
   }) async {
     StoryCreate storyCreate = await RemoteDataSource.createStory(
-      idUser: _idUser!,
+      idUser: idUser,
       title: title,
       content: content,
       image: image,
       likeCount: "0",
     );
+    log('data : $storyCreate');
     return storyCreate;
   }
 }
