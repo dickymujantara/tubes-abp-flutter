@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -91,16 +92,21 @@ class RemoteDataSource {
     File? image,
     required String likeCount,
   }) async {
-    Response<String> response = await _dio.post<String>(
-      '/create/story',
-      data: {
+    var formData = FormData.fromMap({
         'title': title,
         'content': content,
         if (image != null)
-          'image': await MultipartFile.fromFile(image.path),
+        'image': await MultipartFile.fromFile(image.path),
         'likeCount': "0",
-      },
+    });
+    log('FormData : $formData');
+    // _dio.options.contentType = 'multipart/form-data';
+    Response<String> response = await _dio.post<String>(
+      '/create/story',
+      data: formData,
     );
+    log(_dio.options.contentType.toString());
+    log('data : $response');
     return storyCreateFromJson(response.data!);
   }
 

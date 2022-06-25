@@ -30,13 +30,13 @@ class _DetailScreenState extends State<DetailScreen> {
             children: [
               SizedBox(height: 8),
               Text(
-                visit.name,
+                visit.fullname,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
                     color: Colors.blue),
               ),
-              Text(visit.name),
+              Text(visit.placeName),
             ],
           ),
         ),

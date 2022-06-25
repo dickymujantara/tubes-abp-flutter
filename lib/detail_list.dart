@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-
-import 'note.dart';
-
+import 'package:tubes_flutter/model/visit_response.dart';
 class DetailScreen extends StatefulWidget {
-  final Note note;
+  final Datum data;
 
-  DetailScreen(this.note);
+  DetailScreen({required this.data});
 
   @override
   _DetailScreenState createState() => _DetailScreenState();
@@ -14,7 +12,7 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
-    final note = widget.note;
+    final data = widget.data;
 
     return Scaffold(
       appBar: AppBar(
@@ -29,13 +27,13 @@ class _DetailScreenState extends State<DetailScreen> {
             children: [
               SizedBox(height: 8),
               Text(
-                note.title,
+                data.placeName,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
                     color: Colors.blue),
               ),
-              Text(note.content),
+              Text(data.visitDate.toLocal().toString()),
             ],
           ),
         ),

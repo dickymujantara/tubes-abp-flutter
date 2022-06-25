@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:tubes_flutter/detail_list.dart';
 import 'package:tubes_flutter/model/visit_response.dart';
@@ -13,15 +15,6 @@ class VisitList extends StatefulWidget {
 }
 
 class ListScreenState extends State<VisitList> {
-  // final List<Note> _noteList = [
-  //   //Note(title: 'Raisul', content: 'Ranca Upas', color: Colors.blue),
-  //   // Note(
-  //   //   title: 'Tubes 2',
-  //   //   content: 'Mobile App With Flutter',
-  //   //   color: Colors.orange,
-  //   // ),
-  // ];
-
   @override
   Widget build(BuildContext context) {
     VisitProvider visitProvider = Provider.of<VisitProvider>(context);
@@ -45,9 +38,9 @@ class ListScreenState extends State<VisitList> {
                       // final note = _noteList[index];
                       // final visit = _noteList[index];
                       return ListTile(
-                        leading: (CircleAvatar()),
+                        leading: Image.memory(base64Decode(visit[index].image)),
                         title: Text(
-                          visit[index].name,
+                          visit[index].fullname,
                           style: TextStyle(color: Colors.blue, fontSize: 20),
                         ),
                         onTap: () {
@@ -55,7 +48,7 @@ class ListScreenState extends State<VisitList> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  DetailScreen(note: visit[index]),
+                                DetailScreen(data : visit[index]),
                             ),
                           );
                         },
