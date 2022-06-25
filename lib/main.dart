@@ -4,6 +4,7 @@ import 'package:tubes_flutter/common/colors.dart';
 
 import 'package:tubes_flutter/provider/user_provider.dart';
 import 'package:tubes_flutter/provider/story_provider.dart';
+import 'package:tubes_flutter/provider/visit_provider.dart';
 import 'package:tubes_flutter/provider/tourist_provider.dart';
 import 'package:tubes_flutter/ui/wrapper_page.dart';
 import 'package:tubes_flutter/ui/auth/login_page.dart';
@@ -17,11 +18,11 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget{
         ChangeNotifierProvider(
           create: (_) => TouristProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => VisitProvider(),
+        ),
       ],
       child: MaterialApp(
         title: "Touristenziel",
@@ -42,8 +46,8 @@ class MyApp extends StatelessWidget{
               .copyWith(secondary: greyColor),
         ),
         home: const WrapperPage(),
-        onGenerateRoute: (RouteSettings settings){
-          switch(settings.name){
+        onGenerateRoute: (RouteSettings settings) {
+          switch (settings.name) {
             case LoginPage.routeName:
               return MaterialPageRoute(builder: (_) => const LoginPage());
             case RegisterPage.routeName:
@@ -51,17 +55,20 @@ class MyApp extends StatelessWidget{
             case UpdateAccount.routeName:
               return MaterialPageRoute(builder: (_) => const UpdateAccount());
             case MyHomePage.routeName:
-              return MaterialPageRoute(builder: (_) => const MyHomePage(title: "Touristenziel",));
+              return MaterialPageRoute(
+                  builder: (_) => const MyHomePage(
+                        title: "Touristenziel",
+                      ));
             default:
               return MaterialPageRoute(
                 builder: (_) {
                   return const Scaffold(
                     body: Center(
                       child: Text('Page not found :('),
-                  ),
-                );
-              },
-            );
+                    ),
+                  );
+                },
+              );
           }
         },
       ),

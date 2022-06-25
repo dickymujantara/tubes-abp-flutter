@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tubes_flutter/detail_list.dart';
+import 'package:tubes_flutter/model/visit_response.dart';
 import 'package:tubes_flutter/note.dart';
+import 'package:tubes_flutter/provider/visit_provider.dart';
+import 'package:provider/provider.dart';
 
 class VisitList extends StatefulWidget {
   const VisitList({Key? key}) : super(key: key);
@@ -21,29 +24,46 @@ class ListScreenState extends State<VisitList> {
 
   @override
   Widget build(BuildContext context) {
+    VisitProvider visitProvider = Provider.of<VisitProvider>(context);
     return Scaffold(
-      body: ListView.builder(
-          itemCount: _noteList.length,
-          itemBuilder: (context, index) {
-            final note = _noteList[index];
-            return ListTile(
-              leading: (CircleAvatar(
-                backgroundColor: _noteList[index].color,
-              )),
-              title: Text(
-                _noteList[index].title,
-                style: TextStyle(color: Colors.blue, fontSize: 20),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DetailScreen(_noteList[index]),
-                  ),
+        body: FutureBuilder(
+            future: visitProvider.getVisit(),
+            builder: (_, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                VisitResponse visitResponse = snapshot.data as VisitResponse;
+                List<Datum> visit = visitResponse.data;
+
+                if (visit.isEmpty) {
+                  return const Center(
+                    child: Text("Tidak ada riwayat"),
+                  );
+                }
+                return ListView.builder(
+                    itemCount: visit.length,
+                    itemBuilder: (context, index) {
+                      // final note = _noteList[index];
+                      return ListTile(
+                        leading: (CircleAvatar()),
+                        title: Text(
+                          visit[index].name,
+                          style: TextStyle(color: Colors.blue, fontSize: 20),
+                        ),
+                        onTap: () {
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) =>
+                          //         DetailScreen(visit[index]),
+                          //   ),
+                          // );
+                        },
+                      );
+                    });
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
                 );
-              },
-            );
-          }),
-    );
+              }
+            }));
   }
 }
