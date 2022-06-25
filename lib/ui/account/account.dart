@@ -5,7 +5,7 @@ import 'package:tubes_flutter/common/text_styles.dart';
 import 'package:tubes_flutter/ui/auth/login_page.dart';
 import 'package:tubes_flutter/provider/user_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:tubes_flutter/ui/auth/login_page.dart';
+import 'package:tubes_flutter/ui/account/update_account.dart';
 
 class Account extends StatefulWidget{
   static const routeName = "profile";
@@ -182,7 +182,7 @@ class _AccountState extends State<Account> {
                     TextSpan(
                         text: 'Phone Number\n',
                         style: greyText.copyWith(fontSize: 15)),
-                    TextSpan(text: _name, style: blackText),
+                    TextSpan(text: _phoneNumber, style: blackText),
                   ]),
                   textAlign: TextAlign.center,
                 ),
@@ -198,11 +198,7 @@ class _AccountState extends State<Account> {
             primary: primaryColor,
           ),
           onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              LoginPage.routeName,
-              (Route<dynamic> route) => false,
-            );
+            Navigator.pushNamed(context, UpdateAccount.routeName);
           },
           child: Text(
             'Update Profile',

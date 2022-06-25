@@ -7,6 +7,7 @@ import 'package:tubes_flutter/model/user_profile_response.dart';
 import 'package:tubes_flutter/model/user_register_response.dart';
 import 'package:tubes_flutter/network/remote_data_source.dart';
 import '../model/user_response.dart';
+import '../model/user_update_response.dart';
 
 class UserProvider with ChangeNotifier{
   String? _token;
@@ -91,6 +92,38 @@ class UserProvider with ChangeNotifier{
 
   }
   
+  Future<UserUpdateResponse> updateProfile({
+    required String name,
+    required String email,
+    required String phoneNumber,
+    required String address
+  }) async {
+    print(name);
+    print(email);
+    print(phoneNumber);
+    print(address);
+    print(_id);
+    UserUpdateResponse updateProfile = await RemoteDataSource.updateProfile(
+      id: _id!, 
+      name: name, 
+      email: email, 
+      phoneNumber: phoneNumber, 
+      address: address
+    );
+    print(updateProfile.code);
+    _name = updateProfile.data.name;
+    _address = updateProfile.data.address;
+    _email = updateProfile.data.email;
+    _phoneNumber = updateProfile.data.profile.phoneNumber;
+
+    await _preferences.setString(keyName,_name!);
+    await _preferences.setString(keyAddress,_address!);
+    await _preferences.setString(keyEmail,_email!);
+    await _preferences.setString(keyPhonenumber,_phoneNumber!);
+
+    return updateProfile;
+  }
+
   Future<void> logout() async {
     _preferences = await SharedPreferences.getInstance();
     _preferences.clear();

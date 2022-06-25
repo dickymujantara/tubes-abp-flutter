@@ -4,6 +4,7 @@ import '../model/user_response.dart';
 import '../model/story_response.dart';
 import '../model/user_register_response.dart';
 import '../model/user_profile_response.dart';
+import '../model/user_update_response.dart';
 import '../common/constants.dart';
 
 class RemoteDataSource {
@@ -22,7 +23,6 @@ class RemoteDataSource {
       {required String username, required String password}) async {
     Response<String> response = await _dio.post<String>('/login',
         data: {'username': username, 'password': password});
-    print(response.data);
     return userResponseFromJson(response.data!);
   }
   
@@ -53,6 +53,23 @@ class RemoteDataSource {
   }) async {
     Response<String> response = await _dio.get<String>('/user/profile/' + id);
     return userProfileResponseFromJson(response.data!);
+  }
+
+  static Future<UserUpdateResponse> updateProfile({
+    required String id,
+    required String name,
+    required String email,
+    required String phoneNumber,
+    required String address
+  }) async {
+    Response<String> response = await _dio.post<String>('/user/profile/' + id,
+    data: {
+      "name" : name,
+      "email" : email,
+      "phoneNumber" : phoneNumber,
+      "address" : address
+    });
+    return userUpdateResponseFromJson(response.data!);
   }
 
   static Future<Stories> getHistory() async {

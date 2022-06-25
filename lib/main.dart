@@ -7,6 +7,7 @@ import 'package:tubes_flutter/ui/wrapper_page.dart';
 import 'package:tubes_flutter/ui/auth/login_page.dart';
 import 'package:tubes_flutter/ui/auth/register_page.dart';
 import 'package:tubes_flutter/home.dart';
+import 'package:tubes_flutter/ui/account/update_account.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +40,8 @@ class MyApp extends StatelessWidget{
               return MaterialPageRoute(builder: (_) => const LoginPage());
             case RegisterPage.routeName:
               return MaterialPageRoute(builder: (_) => const RegisterPage());
+            case UpdateAccount.routeName:
+              return MaterialPageRoute(builder: (_) => const UpdateAccount());
             case MyHomePage.routeName:
               return MaterialPageRoute(builder: (_) => const MyHomePage(title: "Touristenziel",));
             default:
