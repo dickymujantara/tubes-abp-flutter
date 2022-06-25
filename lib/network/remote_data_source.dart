@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:tubes_flutter/model/story_detail.dart';
+import 'package:tubes_flutter/model/story_create.dart';
 import '../model/tourist_attraction.dart';
 import '../model/user_response.dart';
 import '../model/story_response.dart';
@@ -54,9 +58,37 @@ class RemoteDataSource {
     return userProfileResponseFromJson(response.data!);
   }
 
-  static Future<Stories> getHistory() async {
+  static Future<StoryResponse> getStory() async{
     Response<String> response = await _dio.get<String>('/read/story');
-    return storiesFromJson(response.data ?? "");
+    return storyResponseFromJson(response.data!);
+  }
+
+  static Future<StoryDetail> getStoryDetail({
+    required String id
+  }) async {
+    Response<String> response = await _dio.get<String>('/edit/story/' + id);
+    return storyDetailFromJson(response.data!);
+  }
+
+  static Future<StoryCreate> createStory({
+    required String iduser,
+    required String title,
+    required String content,
+    File? image,
+    required String likecount,
+  }) async {
+    Response<String> response = await _dio.post<String>(
+      '/create/story',
+      data: {
+        'id_user': iduser,
+        'title': title,
+        'content': content,
+        if (image != null)
+          'image': await MultipartFile.fromFile(image.path),
+        'like_count': likecount,
+      },
+    );
+    return storyCreateFromJson(response.data!);
   }
 
   // static Future<Attractions> getTourists() async {

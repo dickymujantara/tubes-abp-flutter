@@ -2,7 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:tubes_flutter/ui/story/story.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:tubes_flutter/provider/story_provider.dart';
+import 'package:provider/provider.dart';
 
 class AddStory extends StatelessWidget {
   const AddStory({Key? key}) : super(key: key);
@@ -38,21 +39,21 @@ class TambahCeritaPageState extends State<TambahCeritaPage> {
     setState(() => this.image = imageTemp);
   }
 
-  TextEditingController textNama = TextEditingController();
-  TextEditingController textTitle = TextEditingController();
-  TextEditingController textContent = TextEditingController();
+  TextEditingController textNamaController = TextEditingController();
+  TextEditingController textTitleController = TextEditingController();
+  TextEditingController textContentController = TextEditingController();
 
   void kirimdata(){
     AlertDialog alert = AlertDialog(
-      title: Text(textNama.text),
+      title: Text(textNamaController.text),
       content: SizedBox(
         height: 200,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text("Judul: ${textTitle.text}"),
-            Text("Content: ${textContent.text}"),
+            Text("Judul: ${textTitleController.text}"),
+            Text("Content: ${textContentController.text}"),
             Image.file(image!)
           ]
         )
@@ -98,7 +99,7 @@ class TambahCeritaPageState extends State<TambahCeritaPage> {
           child: Column(
             children: <Widget>[
               TextField(
-                controller: textNama,
+                controller: textNamaController,
                 decoration: InputDecoration(
                   hintText: "Nama Lengkap",
                   labelText: "Nama Lengkap",
@@ -109,7 +110,7 @@ class TambahCeritaPageState extends State<TambahCeritaPage> {
               ),
               const Padding(padding: EdgeInsets.only(top: 10.0),),
               TextField(
-                controller: textTitle,
+                controller: textTitleController,
                 decoration: InputDecoration(
                   hintText: "Judul",
                   labelText: "Judul",
@@ -120,7 +121,7 @@ class TambahCeritaPageState extends State<TambahCeritaPage> {
               ),
               const Padding(padding: EdgeInsets.only(top: 10.0),),
               TextField(
-                controller: textContent,
+                controller: textContentController,
                 maxLength: 255,
                 maxLines: 3,
                 decoration: InputDecoration(
