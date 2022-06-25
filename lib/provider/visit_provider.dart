@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:tubes_flutter/model/create_visit_response.dart';
 import 'package:tubes_flutter/model/visit_response.dart';
 import 'package:tubes_flutter/model/visit_detail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,8 +20,8 @@ class VisitProvider with ChangeNotifier {
     _idVisit = _preferences.getString(keyIdVisit);
   }
 
-  Future<void> setStory({required String idVisit}) async {
-    await _preferences.setString(keyIdVisit, idVisit);
+  Future<void> setVisit({required String idVisit}) async {
+    _idVisit = idVisit;
   }
 
   Future<VisitResponse> getVisit() async {
@@ -28,4 +31,12 @@ class VisitProvider with ChangeNotifier {
   Future<VisitDetail> getVisitDetail() async {
     return await RemoteDataSource.getVisitDetail(id: _idVisit!);
   }
+
+  Future<CreateVisitResponse> createVisit({
+    required idUser,
+    required visitDate
+  }) async{
+    return await RemoteDataSource.createVisit(idUser: idUser, idAttraction: _idVisit!, visitDate: visitDate);
+  }
+
 }

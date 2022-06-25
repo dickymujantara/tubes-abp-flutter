@@ -40,9 +40,10 @@ class ListScreenState extends State<VisitList> {
                       return ListTile(
                         leading: Image.memory(base64Decode(visit[index].image)),
                         title: Text(
-                          visit[index].fullname,
-                          style: TextStyle(color: Colors.blue, fontSize: 20),
+                          visit[index].fullname + "\n" + visit[index].placeName,
+                          style: TextStyle(color: Colors.blue, fontSize: 20,),
                         ),
+                        contentPadding: EdgeInsets.all(10),
                         onTap: () {
                           Navigator.push(
                             context,
