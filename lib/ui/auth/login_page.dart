@@ -8,7 +8,6 @@ import 'package:tubes_flutter/widget/custom_form_field.dart';
 import 'package:tubes_flutter/common/colors.dart';
 import 'package:tubes_flutter/home.dart';
 import 'package:tubes_flutter/ui/auth/register_page.dart';
-import 'package:tubes_flutter/ui/account/account.dart';
 
 class LoginPage extends StatefulWidget{
   static const routeName = "login";

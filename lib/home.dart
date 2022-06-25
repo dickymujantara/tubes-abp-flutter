@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tubes_flutter/common/colors.dart';
 import 'ui/home/home.dart';
 import 'ui/story/story.dart';
 import 'ui/visitlist/listdata.dart';
@@ -72,26 +73,28 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: _currentPage,
       bottomNavigationBar: BottomNavigationBar(
-          onTap: (index) {
-            _changeTab(index);
-          },
-          currentIndex: _currentIndex,
-          items: const [
-            BottomNavigationBarItem(
-              label: page1,
-              icon: Icon(Icons.home),
-            ),
-            BottomNavigationBarItem(
-              label: page2,
-              icon: Icon(Icons.note),
-            ),
-            BottomNavigationBarItem(
-                label: page3, icon: Icon(Icons.location_city)),
-            BottomNavigationBarItem(
-              label: page4,
-              icon: Icon(Icons.people),
-            ),
-          ]),
+      onTap: (index) {
+        _changeTab(index);
+      },
+      backgroundColor: primaryColor,
+      selectedItemColor: infoColor,
+      currentIndex: _currentIndex,
+      items: const [
+        BottomNavigationBarItem(
+          label: page1,
+          icon: Icon(Icons.home),
+        ),
+        BottomNavigationBarItem(
+          label: page2,
+          icon: Icon(Icons.note),
+        ),
+        BottomNavigationBarItem(
+            label: page3, icon: Icon(Icons.location_city)),
+        BottomNavigationBarItem(
+          label: page4,
+          icon: Icon(Icons.people),
+        ),
+      ]),
     );
   }
 }

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tubes_flutter/common/constants.dart';
 import 'package:tubes_flutter/model/user_register_response.dart';
-import 'package:tubes_flutter/model/user_response.dart';
 import 'package:tubes_flutter/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:tubes_flutter/common/text_styles.dart';
 import 'package:tubes_flutter/widget/custom_form_field.dart';
 import 'package:tubes_flutter/common/colors.dart';
-import 'package:tubes_flutter/ui/auth/login_page.dart';
 
 class RegisterPage extends StatefulWidget{
   static const routeName = "register";
