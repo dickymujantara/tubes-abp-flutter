@@ -4,6 +4,7 @@ import 'package:tubes_flutter/common/colors.dart';
 
 import 'package:tubes_flutter/provider/user_provider.dart';
 import 'package:tubes_flutter/provider/story_provider.dart';
+import 'package:tubes_flutter/provider/tourist_provider.dart';
 import 'package:tubes_flutter/ui/wrapper_page.dart';
 import 'package:tubes_flutter/ui/auth/login_page.dart';
 import 'package:tubes_flutter/ui/auth/register_page.dart';
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget{
         ),
         ChangeNotifierProvider(
           create: (_) => StoryProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => TouristProvider(),
         ),
       ],
       child: MaterialApp(

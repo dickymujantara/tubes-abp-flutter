@@ -1,11 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:tubes_flutter/model/tourism_place.dart';
 import 'package:tubes_flutter/model/tourist_attraction.dart';
 
 var informationTextStyle = TextStyle(fontFamily: 'Oswald');
 
 class DetailScreen extends StatelessWidget {
-  final Attraction place;
+  final Datum place;
 
   DetailScreen({required this.place});
 
@@ -18,8 +19,7 @@ class DetailScreen extends StatelessWidget {
           children: <Widget>[
             Stack(
               children: <Widget>[
-                Image.network(
-                    'https://media-cdn.tripadvisor.com/media/photo-s/0d/7c/59/70/farmhouse-lembang.jpg'),
+                Image.memory(base64Decode(place.image)),
                 SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -76,7 +76,7 @@ class DetailScreen extends StatelessWidget {
                       Icon(Icons.access_time),
                       SizedBox(height: 8.0),
                       Text(
-                        '07:00 - 17:00',
+                        place.openclose[0].open + "-" + place.openclose[0].close,
                         style: informationTextStyle,
                       ),
                     ],
@@ -97,7 +97,7 @@ class DetailScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(16.0),
               child: Text(
-                'Berada di jalur utama Bandung-Lembang, Farm House menjadi objek wisata yang tidak pernah sepi pengunjung. Selain karena letaknya strategis, kawasan ini juga menghadirkan nuansa wisata khas Eropa. Semua itu diterapkan dalam bentuk spot swafoto Instagramable.',
+                place.fullReview,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16.0,
