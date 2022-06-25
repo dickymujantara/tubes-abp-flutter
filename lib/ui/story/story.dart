@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:tubes_flutter/model/story_response.dart';
 import 'package:tubes_flutter/ui/story/add_story.dart';
@@ -42,7 +44,6 @@ class _StoryState extends State<Story> {
                   children: stories.map((story) {
                     return InkWell(
                       onTap: () {
-                        storyProvider.setStory(idStory: story.id.toString());
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
                           return DetailScreenStory(story: story);
                         }));
@@ -52,11 +53,10 @@ class _StoryState extends State<Story> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
                             Expanded(
-                              child: Text(story.title),
-                              // child: Image.network(
-                              //   story.image,
-                              //   fit: BoxFit.cover,
-                              // ),
+                              child: Image.memory(
+                                base64Decode(story.image),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ],
                         ),
