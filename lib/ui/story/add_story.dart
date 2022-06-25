@@ -53,11 +53,10 @@ class TambahCeritaPageState extends State<TambahCeritaPage> {
     try {
       StoryProvider provider = context.read<StoryProvider>();
       StoryCreate create = await provider.createStory(
-        id_user: textNamaController.text,
         title: textTitleController.text, 
         content: textContentController.text, 
-        image: image, 
-        like_count: "0");
+        image: image!, 
+        likeCount: "0");
 
       setState(() => _onSend = false);
 

@@ -36,19 +36,18 @@ class StoryProvider with ChangeNotifier {
   }
 
   Future<StoryCreate> createStory({
-    required String id_user,
     required String title,
     required String content,
     File? image,
-    required String like_count,
+    required String likeCount,
     
   }) async {
     StoryCreate storyCreate = await RemoteDataSource.createStory(
-      id_user: id_user,
+      idUser: _idUser!,
       title: title,
       content: content,
       image: image,
-      like_count: "0",
+      likeCount: "0",
     );
     return storyCreate;
   }
