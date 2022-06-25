@@ -9,8 +9,8 @@ import 'package:tubes_flutter/provider/story_provider.dart';
 import 'package:provider/provider.dart';
 
 
-class AddStory extends StatelessWidget {
-  const AddStory({Key? key}) : super(key: key);
+class UpdateStory extends StatelessWidget {
+  const UpdateStory({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -20,19 +20,19 @@ class AddStory extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: TambahCeritaPage(),
+      home: UpdateCeritaPage(),
     );
   }
 }
 
-class TambahCeritaPage extends StatefulWidget {
-  const TambahCeritaPage({Key? key}) : super(key: key);
+class UpdateCeritaPage extends StatefulWidget {
+  const UpdateCeritaPage({Key? key}) : super(key: key);
 
   @override
-  TambahCeritaPageState createState() => TambahCeritaPageState();
+  UpdateCeritaPageState createState() => UpdateCeritaPageState();
 }
 
-class TambahCeritaPageState extends State<TambahCeritaPage> {
+class UpdateCeritaPageState extends State<UpdateCeritaPage> {
   File? image;
 
   Future pickImage() async{
@@ -159,11 +159,12 @@ class TambahCeritaPageState extends State<TambahCeritaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tambah Cerita'),
+        title: const Text('Ubah Cerita'),
         actions: [
           IconButton(
             onPressed: () {
-              _createStory();
+              // _createStory();
+              Navigator.of(context).pop();
             },
             icon: const Icon(Icons.check),
           ),
@@ -220,7 +221,7 @@ class TambahCeritaPageState extends State<TambahCeritaPage> {
               ),
               RaisedButton(
                 onPressed: (){
-                  _createStory();
+                  Navigator.of(context).pop();
                 },
                 child: const Text(
                   "Simpan", style: TextStyle(color: Colors.white,),

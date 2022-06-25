@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tubes_flutter/model/story_response.dart';
+import 'package:tubes_flutter/ui/story/update_story.dart';
 
 var informationTextStyle = TextStyle(fontFamily: 'Oswald');
 
@@ -39,10 +40,52 @@ class DetailScreenStory extends StatelessWidget {
                   fontSize: 15,
                 ),
               ),
+              Row(
+                children: [
+                  FavoriteButton(),
+                  Text(story.likeCount.toString()),
+                  const Padding(padding: EdgeInsets.all(5)),
+                  RaisedButton(
+                    onPressed: (){
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const UpdateCeritaPage(),
+                      ));
+                    },
+                    child: const Text(
+                      "Update", style: TextStyle(color: Colors.white,),
+                    ),
+                    color: Colors.blue,
+                  ),
+                ],
+              )
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class FavoriteButton extends StatefulWidget {
+  @override
+  _FavoriteButtonState createState() => _FavoriteButtonState();
+}
+
+class _FavoriteButtonState extends State<FavoriteButton> {
+  bool isFavorite = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(
+        isFavorite ? Icons.favorite : Icons.favorite_border,
+        color: Colors.red,
+      ),
+      onPressed: () {
+        setState(() {
+          isFavorite = !isFavorite;
+        });
+      },
     );
   }
 }
