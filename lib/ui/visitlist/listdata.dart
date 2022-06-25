@@ -13,14 +13,14 @@ class VisitList extends StatefulWidget {
 }
 
 class ListScreenState extends State<VisitList> {
-  final List<Note> _noteList = [
-    Note(title: 'Raisul', content: 'Ranca Upas', color: Colors.blue),
-    // Note(
-    //   title: 'Tubes 2',
-    //   content: 'Mobile App With Flutter',
-    //   color: Colors.orange,
-    // ),
-  ];
+  // final List<Note> _noteList = [
+  //   //Note(title: 'Raisul', content: 'Ranca Upas', color: Colors.blue),
+  //   // Note(
+  //   //   title: 'Tubes 2',
+  //   //   content: 'Mobile App With Flutter',
+  //   //   color: Colors.orange,
+  //   // ),
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +38,12 @@ class ListScreenState extends State<VisitList> {
                     child: Text("Tidak ada riwayat"),
                   );
                 }
+
                 return ListView.builder(
                     itemCount: visit.length,
                     itemBuilder: (context, index) {
                       // final note = _noteList[index];
+                      // final visit = _noteList[index];
                       return ListTile(
                         leading: (CircleAvatar()),
                         title: Text(
@@ -49,13 +51,13 @@ class ListScreenState extends State<VisitList> {
                           style: TextStyle(color: Colors.blue, fontSize: 20),
                         ),
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) =>
-                          //         DetailScreen(visit[index]),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  DetailScreen(note: visit[index]),
+                            ),
+                          );
                         },
                       );
                     });

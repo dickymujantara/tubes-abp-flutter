@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-
+import 'package:tubes_flutter/model/visit_response.dart';
 import 'note.dart';
+import 'dart:convert';
 
 class DetailScreen extends StatefulWidget {
-  final Note note;
+  final Datum visit;
 
-  DetailScreen(this.note);
+  DetailScreen({required this.visit});
 
   @override
   _DetailScreenState createState() => _DetailScreenState();
@@ -14,7 +15,7 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
-    final note = widget.note;
+    final visit = widget.visit;
 
     return Scaffold(
       appBar: AppBar(
@@ -29,13 +30,13 @@ class _DetailScreenState extends State<DetailScreen> {
             children: [
               SizedBox(height: 8),
               Text(
-                note.title,
+                visit.name,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
                     color: Colors.blue),
               ),
-              Text(note.content),
+              Text(visit.name),
             ],
           ),
         ),
