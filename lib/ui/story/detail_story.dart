@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:tubes_flutter/model/story_response.dart';
 
@@ -8,7 +7,7 @@ var informationTextStyle = TextStyle(fontFamily: 'Oswald');
 class DetailScreenStory extends StatelessWidget {
   final Datum story;
 
-  DetailScreenStory({required this.story});
+  DetailScreenStory({required this.story});  
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +29,8 @@ class DetailScreenStory extends StatelessWidget {
                 ),
               ),
               const Padding(padding: EdgeInsets.all(5)),
-              Image.asset(
-                base64Decode(story.image).toString(),
+              Image.memory(
+                base64Decode(story.image),
               ),
               const Padding(padding: EdgeInsets.all(5)),
               Text(
