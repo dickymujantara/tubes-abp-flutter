@@ -6,6 +6,7 @@ import 'package:tubes_flutter/model/visit_response.dart';
 import 'package:tubes_flutter/note.dart';
 import 'package:tubes_flutter/provider/visit_provider.dart';
 import 'package:provider/provider.dart';
+import 'add_visit.dart';
 
 class VisitList extends StatefulWidget {
   const VisitList({Key? key}) : super(key: key);
@@ -48,7 +49,7 @@ class ListScreenState extends State<VisitList> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                DetailScreen(data : visit[index]),
+                                  DetailScreen(data: visit[index]),
                             ),
                           );
                         },
@@ -59,6 +60,14 @@ class ListScreenState extends State<VisitList> {
                   child: CircularProgressIndicator(),
                 );
               }
-            }));
+            }),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => Visitlist(),
+            ));
+          },
+          child: const Icon(Icons.add),
+        ));
   }
 }
