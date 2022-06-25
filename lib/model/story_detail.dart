@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-StoryResponse storyResponseFromJson(String str) => StoryResponse.fromJson(json.decode(str));
+StoryDetail storyDetailFromJson(String str) => StoryDetail.fromJson(json.decode(str));
 
-String storyResponseToJson(StoryResponse data) => json.encode(data.toJson());
+String storyDetailToJson(StoryDetail data) => json.encode(data.toJson());
 
-class StoryResponse {
-    StoryResponse({
+class StoryDetail {
+    StoryDetail({
         required this.code,
         required this.message,
         required this.data,
@@ -13,25 +13,23 @@ class StoryResponse {
 
     int code;
     String message;
-    List<Datum> data;
+    Data data;
 
-    factory StoryResponse.fromJson(Map<String, dynamic> json) => StoryResponse(
+    factory StoryDetail.fromJson(Map<String, dynamic> json) => StoryDetail(
         code: json["code"],
         message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: Data.fromJson(json["data"]),
     );
 
     Map<String, dynamic> toJson() => {
         "code": code,
         "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": data.toJson(),
     };
 }
 
-class Datum {
-    Datum({
-        required this.username,
-        required this.name,
+class Data {
+    Data({
         required this.id,
         required this.idUser,
         required this.title,
@@ -42,8 +40,6 @@ class Datum {
         required this.updatedAt,
     });
 
-    String username;
-    String name;
     int id;
     int idUser;
     String title;
@@ -53,9 +49,7 @@ class Datum {
     DateTime createdAt;
     DateTime updatedAt;
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        username: json["username"],
-        name: json["name"],
+    factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
         idUser: json["id_user"],
         title: json["title"],
@@ -67,8 +61,6 @@ class Datum {
     );
 
     Map<String, dynamic> toJson() => {
-        "username": username,
-        "name": name,
         "id": id,
         "id_user": idUser,
         "title": title,
