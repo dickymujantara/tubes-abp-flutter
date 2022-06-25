@@ -9,4 +9,5 @@ const String keyEmail = "key_email";
 const String keyRole = "key_role";
 const String keyId = "key_id";
 const String keyPhonenumber = "key_phonenumber";
+const String keyIdStory = "key_id_story";
 const String loginFailed = "Login Error!";

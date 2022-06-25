@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:tubes_flutter/model/story_dummy.dart';
+import 'package:tubes_flutter/model/story_response.dart';
 
 var informationTextStyle = TextStyle(fontFamily: 'Oswald');
 
 class DetailScreenStory extends StatelessWidget {
-  final Stories story;
+  final Datum story;
 
   DetailScreenStory({required this.story});
 
@@ -22,14 +24,14 @@ class DetailScreenStory extends StatelessWidget {
             children: <Widget>[
               const Padding(padding: EdgeInsets.all(5)),
               Text(
-                story.judul, 
+                story.title, 
                 style: const TextStyle(
                   fontSize: 20,
                 ),
               ),
               const Padding(padding: EdgeInsets.all(5)),
               Image.asset(
-                'assets/'+story.imageAsset,
+                base64Decode(story.image).toString(),
               ),
               const Padding(padding: EdgeInsets.all(5)),
               Text(
