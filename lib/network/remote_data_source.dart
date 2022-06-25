@@ -12,6 +12,7 @@ import '../model/visit_response.dart';
 import '../model/user_register_response.dart';
 import '../model/user_profile_response.dart';
 import '../model/user_update_response.dart';
+import '../model/create_visit_response.dart';
 import '../common/constants.dart';
 
 class RemoteDataSource {
@@ -144,5 +145,19 @@ class RemoteDataSource {
   static Future<VisitDetail> getVisitDetail({required String id}) async {
     Response<String> response = await _dio.get<String>('/create/visit/' + id);
     return visitDetailFromJson(response.data!);
+  }
+
+  static Future<CreateVisitResponse> createVisit({
+    required String idUser,
+    required String idAttraction,
+    required String visitDate
+  }) async {
+    var formData = FormData.fromMap({
+        'id_user' : idUser,
+        'id_tourist_attraction': idAttraction,
+        'visit_date': visitDate,
+    });
+    Response<String> response = await _dio.post<String>('/create/visit',data: formData);
+    return createVisitResponseFromJson(response.data!);
   }
 }

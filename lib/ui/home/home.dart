@@ -5,6 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:tubes_flutter/model/tourist_attraction.dart';
 import 'package:tubes_flutter/provider/tourist_provider.dart';
 import 'package:tubes_flutter/ui/home/detail_screen.dart';
+import 'package:tubes_flutter/ui/visitlist/add_visit.dart';
+import 'package:provider/provider.dart';
+import 'package:tubes_flutter/provider/visit_provider.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -98,7 +101,20 @@ class _AttractionState extends State<Home> {
                                     )
                                   ],
                                 ),
-                              ))
+                              )
+                          ),
+                          Column(children: [
+                            RaisedButton(
+                                onPressed: () {
+                                  VisitProvider provider = context.read<VisitProvider>();
+                                  provider.setVisit(idVisit: tourists[index].id.toString());
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => Visitlist(),
+                                  ));
+                                },
+                                child: Text("Visit"),
+                              ),
+                          ],)
                         ],
                       ),
                     ),
