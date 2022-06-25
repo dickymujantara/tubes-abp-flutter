@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tubes_flutter/listdata.dart';
+// import 'package:tubes_flutter/listdata.dart';
 
 class Visitlist extends StatelessWidget {
   @override
@@ -19,8 +19,8 @@ class Visitlist extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => ListScreen()));
+              // Navigator.of(context)
+              //     .push(MaterialPageRoute(builder: (context) => ListScreen()));
             },
             child: Text(
               'Lihat List',
