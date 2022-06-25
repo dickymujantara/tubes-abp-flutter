@@ -42,9 +42,10 @@ class _StoryState extends State<Story> {
                   children: stories.map((story) {
                     return InkWell(
                       onTap: () {
-                        // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        //   return DetailScreenStory(story: story);
-                        // }));
+                        storyProvider.setStory(idStory: story.id.toString());
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return DetailScreenStory(story: story);
+                        }));
                       },
                       child: Card(
                         child: Column(
