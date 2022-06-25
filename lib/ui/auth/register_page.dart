@@ -38,53 +38,17 @@ class _RegisterPageState extends State<RegisterPage>{
         conPassword: _conPasswordController.text);
 
       setState(() => _onSend = false);
-
-      showDialog(
-        context: context, 
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Alert'),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: const <Widget>[
-                  Text('Register Successfully!'),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('OK'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Register Successfully!")
+        ),
       );
+      Navigator.pop(context);
     } catch (e) {
-      showDialog(
-        context: context, 
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Alert'),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: const <Widget>[
-                  Text('Register Successfully!'),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('OK'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Register Failed!")
+        ),
       );
     }
     

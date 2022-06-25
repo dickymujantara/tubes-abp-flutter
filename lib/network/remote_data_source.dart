@@ -6,6 +6,8 @@ import 'package:tubes_flutter/model/story_create.dart';
 import '../model/tourist_attraction.dart';
 import '../model/user_response.dart';
 import '../model/story_response.dart';
+import 'package:tubes_flutter/model/visit_detail.dart';
+import '../model/visit_response.dart';
 import '../model/user_register_response.dart';
 import '../model/user_profile_response.dart';
 import '../model/user_update_response.dart';
@@ -29,7 +31,7 @@ class RemoteDataSource {
         data: {'username': username, 'password': password});
     return userResponseFromJson(response.data!);
   }
-  
+
   static Future<UserRegisterResponse> register({
     required String username,
     required String name,
@@ -38,41 +40,37 @@ class RemoteDataSource {
     required String password,
     required String conPassword,
   }) async {
-    Response<String> response = await _dio.post<String>('/register',
-    data:{
-      'username' : username,
-      'name' : name,
-      'email' : email,
-      'address' : address,
-      'role' : "user",
-      'password' : password,
-      'conPassword' : conPassword
+    Response<String> response = await _dio.post<String>('/register', data: {
+      'username': username,
+      'name': name,
+      'email': email,
+      'address': address,
+      'role': "user",
+      'password': password,
+      'conPassword': conPassword
     });
 
     return userRegisterResponseFromJson(response.data!);
   }
 
-  static Future<UserProfileResponse> profile({
-    required String id
-  }) async {
+  static Future<UserProfileResponse> profile({required String id}) async {
     Response<String> response = await _dio.get<String>('/user/profile/' + id);
     return userProfileResponseFromJson(response.data!);
   }
 
-  static Future<UserUpdateResponse> updateProfile({
-    required String id,
-    required String name,
-    required String email,
-    required String phoneNumber,
-    required String address
-  }) async {
+  static Future<UserUpdateResponse> updateProfile(
+      {required String id,
+      required String name,
+      required String email,
+      required String phoneNumber,
+      required String address}) async {
     Response<String> response = await _dio.post<String>('/user/profile/' + id,
-    data: {
-      "name" : name,
-      "email" : email,
-      "phoneNumber" : phoneNumber,
-      "address" : address
-    });
+        data: {
+          "name": name,
+          "email": email,
+          "phoneNumber": phoneNumber,
+          "address": address
+        });
     return userUpdateResponseFromJson(response.data!);
   }
 
@@ -81,9 +79,7 @@ class RemoteDataSource {
     return storyResponseFromJson(response.data!);
   }
 
-  static Future<StoryDetail> getStoryDetail({
-    required String id
-  }) async {
+  static Future<StoryDetail> getStoryDetail({required String id}) async {
     Response<String> response = await _dio.get<String>('/edit/story/' + id);
     return storyDetailFromJson(response.data!);
   }
@@ -108,9 +104,19 @@ class RemoteDataSource {
     return storyCreateFromJson(response.data!);
   }
 
-  // static Future<Attractions> getTourists() async {
-  //   Response<String> response =
-  //       await _dio.get<String>('tourist/attraction/list');
-  //   return attractionsFromJson(response.data ?? "");
-  // }
+  static Future<TouristAttractionResponse> getTourists() async {
+    Response<String> response =
+        await _dio.get<String>('/tourist/attraction/list');
+    return touristAttractionResponseFromJson(response.data ?? "");
+  }
+
+  static Future<VisitResponse> getVisit() async {
+    Response<String> response = await _dio.get<String>('/read/visit');
+    return visitResponseFromJson(response.data!);
+  }
+
+  static Future<VisitDetail> getVisitDetail({required String id}) async {
+    Response<String> response = await _dio.get<String>('/create/visit/' + id);
+    return visitDetailFromJson(response.data!);
+  }
 }
