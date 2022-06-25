@@ -93,20 +93,17 @@ class RemoteDataSource {
     required String likeCount,
   }) async {
     var formData = FormData.fromMap({
+        'id_user' : idUser,
         'title': title,
         'content': content,
         if (image != null)
         'image': await MultipartFile.fromFile(image.path),
-        'likeCount': "0",
+        'like_count': "0",
     });
-    log('FormData : $formData');
-    // _dio.options.contentType = 'multipart/form-data';
     Response<String> response = await _dio.post<String>(
       '/create/story',
       data: formData,
     );
-    log(_dio.options.contentType.toString());
-    log('data : $response');
     return storyCreateFromJson(response.data!);
   }
 
