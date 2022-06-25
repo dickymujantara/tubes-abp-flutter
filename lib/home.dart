@@ -72,29 +72,41 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: _currentPage,
-      bottomNavigationBar: BottomNavigationBar(
-      onTap: (index) {
-        _changeTab(index);
-      },
-      backgroundColor: primaryColor,
-      selectedItemColor: infoColor,
-      currentIndex: _currentIndex,
-      items: const [
-        BottomNavigationBarItem(
-          label: page1,
-          icon: Icon(Icons.home),
-        ),
-        BottomNavigationBarItem(
-          label: page2,
-          icon: Icon(Icons.note),
-        ),
-        BottomNavigationBarItem(
-            label: page3, icon: Icon(Icons.location_city)),
-        BottomNavigationBarItem(
-          label: page4,
-          icon: Icon(Icons.people),
-        ),
-      ]),
+      bottomNavigationBar: new Theme(
+         data: Theme.of(context).copyWith(
+        // sets the background color of the `BottomNavigationBar`
+        canvasColor: Colors.blue,
+        // sets the active color of the `BottomNavigationBar` if `Brightness` is light
+        primaryColor: Colors.red,
+        textTheme: Theme
+            .of(context)
+            .textTheme
+            .copyWith(caption: new TextStyle(color: Colors.yellow))),
+        child: BottomNavigationBar(
+          onTap: (index) {
+            _changeTab(index);
+          },
+          backgroundColor: Colors.blue,
+          unselectedItemColor: infoColor,
+          selectedItemColor: Colors.white,
+          currentIndex: _currentIndex,
+          items: const [
+            BottomNavigationBarItem(
+              label: page1,
+              icon: Icon(Icons.home),
+            ),
+            BottomNavigationBarItem(
+              label: page2,
+              icon: Icon(Icons.note),
+            ),
+            BottomNavigationBarItem(
+                label: page3, icon: Icon(Icons.location_city)),
+            BottomNavigationBarItem(
+              label: page4,
+            icon: Icon(Icons.people),
+          ),
+        ]),
+      )
     );
   }
 }
