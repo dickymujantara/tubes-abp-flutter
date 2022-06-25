@@ -107,6 +107,29 @@ class RemoteDataSource {
     return storyCreateFromJson(response.data!);
   }
 
+  static Future<StoryCreate> updateStory({
+    required String idUser,
+    required String idStory,
+    required String title,
+    required String content,
+    File? image,
+    required String likeCount,
+  }) async {
+    var formData = FormData.fromMap({
+        'id_user' : idUser,
+        'title': title,
+        'content': content,
+        if (image != null)
+        'image': await MultipartFile.fromFile(image.path),
+        'like_count':likeCount,
+    });
+    Response<String> response = await _dio.post<String>(
+      '/update/story/' + idStory,
+      data: formData,
+    );
+    return storyCreateFromJson(response.data!);
+  }
+
   static Future<TouristAttractionResponse> getTourists() async {
     Response<String> response =
         await _dio.get<String>('/tourist/attraction/list');

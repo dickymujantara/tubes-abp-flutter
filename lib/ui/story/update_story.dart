@@ -51,13 +51,13 @@ class UpdateCeritaPageState extends State<UpdateCeritaPage> {
   final _formKey = GlobalKey<FormState>();
   bool _onSend = false;
 
-  Future<void> _createStory() async{
+  Future<void> _updateStory() async{
     setState(() => _onSend = true);
     try {
       StoryProvider provider = context.read<StoryProvider>();
       UserProvider userProvider = context.read<UserProvider>();
       String idUser = userProvider.id!;
-      StoryCreate create = await provider.createStory(
+      StoryCreate create = await provider.updateStory(
         idUser: idUser,
         title: textTitleController.text, 
         content: textContentController.text, 
@@ -221,7 +221,7 @@ class UpdateCeritaPageState extends State<UpdateCeritaPage> {
               ),
               RaisedButton(
                 onPressed: (){
-                  Navigator.of(context).pop();
+                  _updateStory();
                 },
                 child: const Text(
                   "Simpan", style: TextStyle(color: Colors.white,),
