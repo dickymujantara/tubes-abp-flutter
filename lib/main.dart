@@ -14,7 +14,6 @@ import 'package:tubes_flutter/ui/account/update_account.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   runApp(const MyApp());
 }
 
