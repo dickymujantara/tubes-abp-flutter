@@ -40,6 +40,7 @@ class RemoteDataSource {
       'name' : name,
       'email' : email,
       'address' : address,
+      'role' : "user",
       'password' : password,
       'conPassword' : conPassword
     });

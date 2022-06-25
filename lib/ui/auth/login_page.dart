@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage>{
                                   suffixIcon: Icons.visibility,
                                   enable: !_onSend,
                                 ),
-                                
+                                const SizedBox(height: 20),
                               ],
                             ),
                           ),
@@ -120,10 +120,10 @@ class _LoginPageState extends State<LoginPage>{
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              const Text("Belum punya akun?"),
+                              const Text("Don't have an account? "),
                               TextButton(
                                 child: Text(
-                                  "Daftar",
+                                  "Register",
                                   style: primaryText.copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),

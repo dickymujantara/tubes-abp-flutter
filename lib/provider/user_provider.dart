@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tubes_flutter/common/constants.dart';
+import 'package:tubes_flutter/model/user_register_response.dart';
 import 'package:tubes_flutter/network/remote_data_source.dart';
 import '../model/user_response.dart';
 
@@ -38,9 +39,7 @@ class UserProvider with ChangeNotifier{
     required String password
   }) async{
     UserResponse auth = await RemoteDataSource.login(username: username, password: password);
-    print("===Provider===");
-    print(auth);
-    print("===-------===");
+
     _token = auth.data.accessToken;
     _username = auth.data.user.username;
     _name = auth.data.user.name;
@@ -60,4 +59,26 @@ class UserProvider with ChangeNotifier{
     return auth;
   }
 
+  Future<UserRegisterResponse> register({
+    required String username,
+    required String name,
+    required String email,
+    required String address,
+    required String password,
+    required String conPassword,
+  }) async {
+
+    UserRegisterResponse register = await RemoteDataSource.register(
+      username: username, 
+      name: name, 
+      email: email, 
+      address: address, 
+      password: password, 
+      conPassword: conPassword
+    );
+
+    return register;
+
+  }
+  
 }
