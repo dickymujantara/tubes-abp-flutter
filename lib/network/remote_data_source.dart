@@ -109,9 +109,9 @@ class RemoteDataSource {
     return storyCreateFromJson(response.data!);
   }
 
-  // static Future<Attractions> getTourists() async {
-  //   Response<String> response =
-  //       await _dio.get<String>('tourist/attraction/list');
-  //   return attractionsFromJson(response.data ?? "");
-  // }
+  static Future<TouristAttractionResponse> getTourists() async {
+    Response<String> response =
+        await _dio.get<String>('/tourist/attraction/list');
+    return touristAttractionResponseFromJson(response.data ?? "");
+  }
 }

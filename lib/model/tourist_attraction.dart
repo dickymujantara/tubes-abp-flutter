@@ -1,68 +1,90 @@
 // To parse this JSON data, do
 //
-//     final welcome = welcomeFromJson(jsonString);
+//     final touristAttractionResponse = touristAttractionResponseFromJson(jsonString);
 
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
-List<Attraction> attractionFromJson(String str) =>
-    List<Attraction>.from(json.decode(str).map((x) => Attraction.fromJson(x)));
+TouristAttractionResponse touristAttractionResponseFromJson(String str) => TouristAttractionResponse.fromJson(json.decode(str));
 
-String attractionToJson(List<Attraction> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String touristAttractionResponseToJson(TouristAttractionResponse data) => json.encode(data.toJson());
 
-class Attraction {
-  Attraction({
-    required this.id,
-    required this.name,
-    required this.image,
-    required this.address,
-    required this.idOpenClose,
-    required this.phone,
-    required this.emailContact,
-    required this.websiteInformation,
-    required this.ticketPrice,
-    required this.reviewFiveStar,
-    required this.reviewFourStar,
-    required this.reviewThreeStar,
-    required this.reviewTwoStar,
-    required this.reviewOneStar,
-    required this.fullReview,
-    required this.createdBy,
-    required this.updatedBy,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.rating,
-    required this.imageurl,
-    required this.openclose,
-  });
+class TouristAttractionResponse {
+    TouristAttractionResponse({
+        required this.code,
+        required this.message,
+        required this.data,
+    });
 
-  int id;
-  String name;
-  String image;
-  String address;
-  int idOpenClose;
-  String phone;
-  String emailContact;
-  String websiteInformation;
-  String ticketPrice;
-  int reviewFiveStar;
-  int reviewFourStar;
-  int reviewThreeStar;
-  int reviewTwoStar;
-  int reviewOneStar;
-  dynamic fullReview;
-  String createdBy;
-  String updatedBy;
-  DateTime createdAt;
-  DateTime updatedAt;
-  double rating;
-  String imageurl;
-  List<Openclose> openclose;
+    int code;
+    String message;
+    List<Datum> data;
 
-  factory Attraction.fromJson(Map<String, dynamic> json) => Attraction(
+    factory TouristAttractionResponse.fromJson(Map<String, dynamic> json) => TouristAttractionResponse(
+        code: json["code"],
+        message: json["message"],
+        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "code": code,
+        "message": message,
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+    };
+}
+
+class Datum {
+    Datum({
+        required this.id,
+        required this.name,
+        required this.address,
+        required this.idOpenClose,
+        required this.phone,
+        required this.emailContact,
+        required this.websiteInformation,
+        required this.ticketPrice,
+        required this.reviewFiveStar,
+        required this.reviewFourStar,
+        required this.reviewThreeStar,
+        required this.reviewTwoStar,
+        required this.reviewOneStar,
+        required this.fullReview,
+        required this.createdBy,
+        required this.updatedBy,
+        required this.createdAt,
+        required this.updatedAt,
+        required this.image,
+        required this.rating,
+        required this.imageurl,
+        required this.openclose,
+    });
+
+    int id;
+    String name;
+    String address;
+    dynamic idOpenClose;
+    String phone;
+    String emailContact;
+    String websiteInformation;
+    String ticketPrice;
+    dynamic reviewFiveStar;
+    dynamic reviewFourStar;
+    dynamic reviewThreeStar;
+    dynamic reviewTwoStar;
+    dynamic reviewOneStar;
+    dynamic fullReview;
+    dynamic createdBy;
+    dynamic updatedBy;
+    DateTime createdAt;
+    DateTime updatedAt;
+    String image;
+    String rating;
+    String imageurl;
+    List<Openclose> openclose;
+
+    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
         name: json["name"],
-        image: json["image"],
         address: json["address"],
         idOpenClose: json["id_open_close"],
         phone: json["phone"],
@@ -79,16 +101,15 @@ class Attraction {
         updatedBy: json["updated_by"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        rating: json["rating"].toDouble(),
+        image: json["image"],
+        rating: json["rating"],
         imageurl: json["imageurl"],
-        openclose: List<Openclose>.from(
-            json["openclose"].map((x) => Openclose.fromJson(x))),
-      );
+        openclose: List<Openclose>.from(json["openclose"].map((x) => Openclose.fromJson(x))),
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "image": image,
         "address": address,
         "id_open_close": idOpenClose,
         "phone": phone,
@@ -105,48 +126,49 @@ class Attraction {
         "updated_by": updatedBy,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
+        "image": image,
         "rating": rating,
         "imageurl": imageurl,
         "openclose": List<dynamic>.from(openclose.map((x) => x.toJson())),
-      };
+    };
 }
 
 class Openclose {
-  Openclose({
-    required this.id,
-    required this.idTouristAttraction,
-    required this.day,
-    required this.open,
-    required this.close,
-    required this.createdAt,
-    required this.updatedAt,
-  });
+    Openclose({
+        required this.id,
+        required this.idTouristAttraction,
+        required this.day,
+        required this.open,
+        required this.createdAt,
+        required this.updatedAt,
+        required this.close,
+    });
 
-  int id;
-  int idTouristAttraction;
-  String day;
-  String open;
-  String close;
-  DateTime createdAt;
-  DateTime updatedAt;
+    int id;
+    int idTouristAttraction;
+    String day;
+    String open;
+    DateTime createdAt;
+    DateTime updatedAt;
+    String close;
 
-  factory Openclose.fromJson(Map<String, dynamic> json) => Openclose(
+    factory Openclose.fromJson(Map<String, dynamic> json) => Openclose(
         id: json["id"],
         idTouristAttraction: json["id_tourist_attraction"],
         day: json["day"],
         open: json["open"],
-        close: json["close"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-      );
+        close: json["close"],
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "id": id,
         "id_tourist_attraction": idTouristAttraction,
         "day": day,
         "open": open,
-        "close": close,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
-      };
+        "close": close,
+    };
 }
