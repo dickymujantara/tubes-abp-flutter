@@ -8,7 +8,6 @@ import 'package:tubes_flutter/widget/custom_form_field.dart';
 import 'package:tubes_flutter/common/colors.dart';
 import 'package:tubes_flutter/home.dart';
 import 'package:tubes_flutter/ui/auth/register_page.dart';
-import 'package:tubes_flutter/ui/account/account.dart';
 
 class LoginPage extends StatefulWidget{
   static const routeName = "login";
@@ -94,7 +93,7 @@ class _LoginPageState extends State<LoginPage>{
                                   suffixIcon: Icons.visibility,
                                   enable: !_onSend,
                                 ),
-                                
+                                const SizedBox(height: 20),
                               ],
                             ),
                           ),
@@ -120,10 +119,10 @@ class _LoginPageState extends State<LoginPage>{
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              const Text("Belum punya akun?"),
+                              const Text("Don't have an account? "),
                               TextButton(
                                 child: Text(
-                                  "Daftar",
+                                  "Register",
                                   style: primaryText.copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),
