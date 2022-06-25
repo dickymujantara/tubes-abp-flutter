@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tubes_flutter/common/constants.dart';
-import 'package:tubes_flutter/model/user_response.dart';
+import 'package:tubes_flutter/model/user_register_response.dart';
 import 'package:tubes_flutter/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:tubes_flutter/common/text_styles.dart';
 import 'package:tubes_flutter/widget/custom_form_field.dart';
 import 'package:tubes_flutter/common/colors.dart';
-import 'package:tubes_flutter/ui/auth/login_page.dart';
 
 class RegisterPage extends StatefulWidget{
   static const routeName = "register";
@@ -26,26 +25,69 @@ class _RegisterPageState extends State<RegisterPage>{
   final _formKey = GlobalKey<FormState>();
   bool _onSend = false;
 
-  Future<void> _login() async{
+  Future<void> _register() async{
     setState(() => _onSend = true);
-    // UserProvider provider = context.read<UserProvider>();
-    // UserResponse auth = await provider.login(username: _usernameController.text, password: _passwordController.text);
-    // print(auth);
-    // if(auth.data?.token == null){
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     SnackBar(
-    //       content: Text(
-    //         loginFailed,
-    //       ),
-    //     ),
-    //   );
-    // }else {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        LoginPage.routeName,
-        (Route<dynamic> route) => false,
+    try {
+      UserProvider provider = context.read<UserProvider>();
+      UserRegisterResponse register = await provider.register(
+        username: _usernameController.text, 
+        name: _nameController.text, 
+        email: _emailController.text, 
+        address: _addressController.text, 
+        password: _passwordController.text, 
+        conPassword: _conPasswordController.text);
+
+      setState(() => _onSend = false);
+
+      showDialog(
+        context: context, 
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Alert'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: const <Widget>[
+                  Text('Register Successfully!'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        }
       );
-    // }
+    } catch (e) {
+      showDialog(
+        context: context, 
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Alert'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: const <Widget>[
+                  Text('Register Successfully!'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        }
+      );
+    }
+    
     setState(() => _onSend = false);
   }
 
@@ -89,7 +131,7 @@ class _RegisterPageState extends State<RegisterPage>{
                                 ),
                                 const SizedBox(height: 10),
                                 CustomFormField(
-                                  textEditingController: _usernameController,
+                                  textEditingController: _nameController,
                                   textHint: 'Full Name',
                                   prefixIcon: Icons.perm_identity,
                                   enable: !_onSend,
@@ -99,6 +141,13 @@ class _RegisterPageState extends State<RegisterPage>{
                                   textEditingController: _emailController,
                                   textHint: 'Email',
                                   prefixIcon: Icons.mail,
+                                  enable: !_onSend,
+                                ),
+                                const SizedBox(height: 10),
+                                CustomFormField(
+                                  textEditingController: _addressController,
+                                  textHint: 'Address',
+                                  prefixIcon: Icons.home,
                                   enable: !_onSend,
                                 ),
                                 const SizedBox(height: 10),
@@ -133,7 +182,7 @@ class _RegisterPageState extends State<RegisterPage>{
                                     ),
                                     onPressed: () {
                                       if (_formKey.currentState!.validate()) {
-                                        _login();
+                                        _register();
                                       }
                                     },
                                     child: Text(
@@ -141,6 +190,30 @@ class _RegisterPageState extends State<RegisterPage>{
                                       style: blackText.copyWith(fontSize: 16),
                                     ),
                                   ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const Text("Already have? "),
+                              TextButton(
+                                child: Text(
+                                  "Login",
+                                  style: primaryText.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                style: TextButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  minimumSize: const Size(10, 30),
+                                  alignment: Alignment.centerLeft,
+                                ),
+                                onPressed: () {
+                                  if (!_onSend) {
+                                    Navigator.pop(context);
+                                  }
+                                },
+                              ),
+                            ],
                           )
                         ],
                       ),

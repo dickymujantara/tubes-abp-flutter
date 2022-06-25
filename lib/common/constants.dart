@@ -7,4 +7,6 @@ const String keyName = "key_name";
 const String keyAddress = "key_address";
 const String keyEmail = "key_email";
 const String keyRole = "key_role";
+const String keyId = "key_id";
+const String keyPhonenumber = "key_phonenumber";
 const String loginFailed = "Login Error!";
