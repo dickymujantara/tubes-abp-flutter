@@ -39,6 +39,7 @@ class RemoteDataSource {
     required String name,
     required String email,
     required String address,
+    required String phoneNum,
     required String password,
     required String conPassword,
   }) async {
@@ -48,6 +49,7 @@ class RemoteDataSource {
       'email': email,
       'address': address,
       'role': "user",
+      'phoneNum' : phoneNum,
       'password': password,
       'conPassword': conPassword
     });

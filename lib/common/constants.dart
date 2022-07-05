@@ -11,4 +11,4 @@ const String keyId = "key_id";
 const String keyPhonenumber = "key_phonenumber";
 const String keyIdStory = "key_id_story";
 const String keyIdVisit = "key_id_visit";
-const String loginFailed = "Login Error!";
+const String loginFailed = "Login Failed!";
