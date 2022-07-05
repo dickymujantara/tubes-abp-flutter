@@ -75,6 +75,7 @@ class UserProvider with ChangeNotifier{
     required String name,
     required String email,
     required String address,
+    required String phoneNum,
     required String password,
     required String conPassword,
   }) async {
@@ -84,6 +85,7 @@ class UserProvider with ChangeNotifier{
       name: name, 
       email: email, 
       address: address, 
+      phoneNum : phoneNum,
       password: password, 
       conPassword: conPassword
     );

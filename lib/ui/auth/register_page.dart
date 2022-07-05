@@ -20,6 +20,7 @@ class _RegisterPageState extends State<RegisterPage>{
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _conPasswordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -33,7 +34,8 @@ class _RegisterPageState extends State<RegisterPage>{
         username: _usernameController.text, 
         name: _nameController.text, 
         email: _emailController.text, 
-        address: _addressController.text, 
+        address: _addressController.text,
+        phoneNum: _phoneController.text,
         password: _passwordController.text, 
         conPassword: _conPasswordController.text);
 
@@ -112,6 +114,13 @@ class _RegisterPageState extends State<RegisterPage>{
                                   textEditingController: _addressController,
                                   textHint: 'Address',
                                   prefixIcon: Icons.home,
+                                  enable: !_onSend,
+                                ),
+                                const SizedBox(height: 10),
+                                CustomFormField(
+                                  textEditingController: _phoneController,
+                                  textHint: 'Phone Number',
+                                  prefixIcon: Icons.phone,
                                   enable: !_onSend,
                                 ),
                                 const SizedBox(height: 10),

@@ -25,22 +25,22 @@ class _LoginPageState extends State<LoginPage>{
 
   Future<void> _login() async{
     setState(() => _onSend = true);
-    UserProvider provider = context.read<UserProvider>();
-    UserResponse auth = await provider.login(username: _usernameController.text, password: _passwordController.text);
-    print(auth);
-    if(auth.data.accessToken == null){
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            loginFailed,
-          ),
-        ),
-      );
-    }else {
+    try {
+      UserProvider provider = context.read<UserProvider>();
+      UserResponse auth = await provider.login(username: _usernameController.text, password: _passwordController.text);
+      print(auth);
       Navigator.pushNamedAndRemoveUntil(
         context,
         MyHomePage.routeName,
         (Route<dynamic> route) => false,
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              loginFailed,
+            ),
+          ),
       );
     }
     setState(() => _onSend = false);
