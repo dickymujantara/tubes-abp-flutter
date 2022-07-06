@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:tubes_flutter/model/story_response.dart';
 import 'package:tubes_flutter/provider/story_provider.dart';
+import 'package:tubes_flutter/provider/user_provider.dart';
 import 'package:tubes_flutter/ui/story/update_story.dart';
+import 'package:tubes_flutter/model/story_create.dart';
 import 'package:provider/provider.dart';
 
 var informationTextStyle = TextStyle(fontFamily: 'Oswald');
@@ -77,6 +80,19 @@ class FavoriteButton extends StatefulWidget {
 
 class _FavoriteButtonState extends State<FavoriteButton> {
   bool isFavorite = false;
+  bool _onSend = false;
+
+  Future<void> _likeStory() async{
+    setState(() => _onSend = true);
+    StoryProvider provider = context.read<StoryProvider>();
+    UserProvider userProvider = context.read<UserProvider>();
+    String idUser = userProvider.id!;
+    StoryCreate create = await provider.likeStory(
+      idUser: idUser,
+      likeCount: "1");
+    
+    setState(() => _onSend = false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +104,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
       onPressed: () {
         setState(() {
           isFavorite = !isFavorite;
+          _likeStory();
         });
       },
     );
