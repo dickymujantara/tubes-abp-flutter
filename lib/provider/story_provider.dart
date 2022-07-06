@@ -70,4 +70,18 @@ class StoryProvider with ChangeNotifier {
     log('data : $storyCreate');
     return storyCreate;
   }
+
+  Future<StoryCreate> likeStory({
+    required String idUser,
+    required String likeCount,
+    
+  }) async {
+    StoryCreate storyCreate = await RemoteDataSource.likeStory(
+      idUser: idUser,
+      idStory: _idStory!,
+      likeCount: likeCount,
+    );
+    log('data : $storyCreate');
+    return storyCreate;
+  }
 }

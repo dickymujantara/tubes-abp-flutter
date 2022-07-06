@@ -133,6 +133,22 @@ class RemoteDataSource {
     return storyCreateFromJson(response.data!);
   }
 
+  static Future<StoryCreate> likeStory({
+    required String idUser,
+    required String idStory,
+    required String likeCount,
+  }) async {
+    var formData = FormData.fromMap({
+        'id_user' : idUser,
+        'like_count':likeCount,
+    });
+    Response<String> response = await _dio.post<String>(
+      '/update/story/' + idStory,
+      data: formData,
+    );
+    return storyCreateFromJson(response.data!);
+  }
+
   static Future<TouristAttractionResponse> getTourists() async {
     Response<String> response =
         await _dio.get<String>('/tourist/attraction/list');
